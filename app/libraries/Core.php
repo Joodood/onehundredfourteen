@@ -1,7 +1,7 @@
 <?php
 
 class Core {
-    protected $currentController = "Homepage";
+    protected $currentController = "Homepages";
     protected $currentMethod = "index";
     protected $params = [];
 
@@ -29,14 +29,14 @@ public function __construct() {
     // what it will look like: $pages = new Pages
     
     //check for second part of url 
-    // if(isset($url[1])) {
-    //     //Check to see if method exists
-    //     if(method_exists($this->currentController, $url[1])) {
-    //         $this->currentMethod = $url[1];
-    //         //unset 1 index
-    //         unset($url[1]);
-    //     }
-    // }
+    if(isset($url[1])) {
+        //Check to see if method exists
+        if(method_exists($this->currentController, $url[1])) {
+            $this->currentMethod = $url[1];
+            //unset 1 index
+            unset($url[1]);
+        }
+    }
 
     //its a prop not a method, so no parenthesis
     // echo $this->currentMethod;
@@ -45,7 +45,7 @@ public function __construct() {
     //if there are paremeters they will get added, if not, then it'll just stay an empty array
 
 
-    // $this->params = $url ? array_values($url) : [];
+    $this->params = $url ? array_values($url) : [];
     
 
     // Call a callback with array of params
