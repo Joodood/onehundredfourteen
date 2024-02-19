@@ -11,14 +11,16 @@ public function __construct() {
 
     $url = $this->getUrl();
 
+    if(isset($url[0])) {
+
     //Look in controllers for first index, value because everything gets routed into that, so we should route everything like its in index.php
     if(file_exists('../app/controllers/' . ucwords($url[0]) . '.php')) {
         //If exists, set as controller 
         $this->currentController = ucwords($url[0]);
         // Unset 0 Index
         unset($url[0]);
-        
     }
+}
     //Require the controller
     require_once '../app/controllers/' . $this->currentController . '.php';
 

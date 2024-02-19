@@ -25,7 +25,7 @@ class Homepages extends Controller {
         // echo $id;
 //, ['title' => 'Welcome']
 
-        $this->view('homepages/index');
+        $this->view('homepages/homepageview', ['title'=>'welcome']);
 
         // $this->view('')
     }
