@@ -1,16 +1,15 @@
 
 <?php require APPROOT . '/views/inc/sidebar.php';
  ?>
-
-
 <?php require APPROOT . '/views/inc/sidebarheader.php'; ?>
 
 
-<?php require APPROOT . '/views/homepages/homepagecontent.php'; ?>
+<?php require APPROOT . '/views/receptionists/receptionistcontent.php'; ?>
 
 
 
-<script>
+
+<!-- <script>
     window.addEventListener('load', (event) => {
     const sidebar = document.getElementById('sidebar');
     sidebar.classList.toggle('hide');
@@ -26,10 +25,10 @@
     sidebar.classList.toggle('hide');
 })
 
-</script>
+</script> -->
+
+
+
 
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>
-
-
-
