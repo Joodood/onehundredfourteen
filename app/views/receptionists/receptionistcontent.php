@@ -57,6 +57,59 @@
 </div>
 
 
+<script>
+$(document).ready(function() {
+
+// Function to handle the search, including empty inputs
+function searchrec() { // Changed function name here
+    var inputValue = $('#live_search').val();
+    console.log('Search triggered for:', inputValue); // Debugging log
+
+    // Make AJAX request
+    $.ajax({
+        type: 'POST',
+        url: 'searchrec', // This remains the same as it's the endpoint, not the function name
+        data: { input: inputsearchrecValue },
+        cache: false, // Prevents caching of the request
+        beforeSend: function() {
+            $('#searchresult').empty(); // Clear the content before new data is loaded
+            console.log('Before sending AJAX request'); // Debugging log
+        },
+        success: function(response) {
+            $('#searchresult').html(response);
+            console.log('AJAX call successful, response:', response); // Debugging log
+        },
+        error: function(xhr, status, error) {
+            console.error("AJAX error:", error);
+            console.log("Status:", status, "Response:", xhr.responseText);
+        }
+    });
+}
+
+// Debounce function to prevent excessive AJAX calls
+let debounceTimer;
+$('#live_search').on('input', function() {
+    console.log('Input event triggered'); // Debugging log
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(function() {
+        searchrec(); // Changed function call here
+    }, 250); // Delay search to ensure user has finished typing
+});
+
+// Manual Test Update Button - for sanity check
+$('<button/>', {
+    text: 'Test Update',
+    click: function() {
+        $('#searchresult').html('Manual test update successful');
+    }
+}).appendTo('body');
+});
+
+
+</script>
+
+
+
 </main>
 
 </section>

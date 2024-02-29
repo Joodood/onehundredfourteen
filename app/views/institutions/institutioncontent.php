@@ -42,10 +42,16 @@
                                 <input type="text" id = "live_search" placeholder="Search...">
 
                                 <button type="submit" id = "button" class="search-btn"><i class='bx bx-search' ></i></button>
+
+                                <!-- <button class="search-btn" onclick="$('#searchresult').html('Test update');">Test Update</button> -->
+
                             </div>
 
                             <div id = "searchresult">
 
+
+
+                                    
                             </div>
 
                         </form> 
@@ -60,31 +66,59 @@
         </div>
 </div>
 
-
-
 <script>
-        function search() {
-            var inputValue = $('#live_search').val();
+$(document).ready(function() {
 
-            // Make AJAX request only if the input is not null or undefined
-            if (inputValue !== null && inputValue !== undefined) {
-                // Make AJAX request
-                $.ajax({
-                    type: 'POST',
-                    url: 'search',
-                    data: { input: inputValue },
-                    success: function(response) {
-                        // Update the content
-                        // $('#searchresult').html(response);
-                        console.log(response);
-                    }
-                });
+    // Function to handle the search, including empty inputs
+    function search() {
+        var inputValue = $('#live_search').val();
+        console.log('Search triggered for:', inputValue); // Debugging log
+
+        // Make AJAX request
+        $.ajax({
+            type: 'POST',
+            url: 'search',
+            data: { input: inputValue },
+            cache: false, // Prevents caching of the request
+            beforeSend: function() {
+                $('#searchresult').empty(); // Clear the content before new data is loaded
+                console.log('Before sending AJAX request'); // Debugging log
+            },
+            success: function(response) {
+                $('#searchresult').html(response);
+                console.log('AJAX call successful, response:', response); // Debugging log
+            },
+            error: function(xhr, status, error) {
+                console.error("AJAX error:", error);
+                console.log("Status:", status, "Response:", xhr.responseText);
             }
-        }
+        });
+    }
 
-        // Initial search on page load
-        search();
-    </script>
+    // Debounce function to prevent excessive AJAX calls
+    let debounceTimer;
+    $('#live_search').on('input', function() {
+        console.log('Input event triggered'); // Debugging log
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(function() {
+            search();
+        }, 250); // Delay search to ensure user has finished typing
+    });
+
+    // Manual Test Update Button - for sanity check
+    $('<button/>', {
+        text: 'Test Update',
+        click: function() {
+            $('#searchresult').html('Manual test update successful');
+        }
+    }).appendTo('body');
+});
+
+
+
+</script>
+
+
 
 
 

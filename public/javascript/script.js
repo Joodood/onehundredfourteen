@@ -25,6 +25,46 @@ menuBar.addEventListener('click', function () {
 
 
 
+function search() {
+    var inputValue = $('#live_search').val();
+
+    // Make AJAX request only if the input is not empty
+    if (inputValue !== '') {
+        $.ajax({
+            type: 'POST',
+            url: 'search',
+            data: { input: inputValue },
+            cache: false, // Prevents caching of the request
+            beforeSend: function() {
+                $('#searchresult').empty(); // Clear the content before new data is loaded
+            },
+            success: function(response) {
+                $('#searchresult').html(response);
+                console.log(response);
+            },
+            error: function(xhr, status, error) {
+                console.log("Error: " + error);
+                console.log(xhr.responseText);
+            }
+        });
+    } else {
+        // Optionally clear the search results if the input is empty
+        $('#searchresult').empty();
+    }
+}
+
+$('#live_search').on('input', function() {
+    search(); // Call the search function whenever the input value changes
+});
+
+
+
+        // Initial search on page load
+        // search();
+  
+
+
+
 
 /////////both added whiuch were on institutionview page//////////
     window.addEventListener('load', (event) => {

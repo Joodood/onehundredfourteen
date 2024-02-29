@@ -1,31 +1,17 @@
 <?php
 
 
-class search extends Controller {
+class Receptionists extends Controller {
     public function __construct() {
-        // echo 'Homepages loaded';
-        // echo "<br>"; 
         // echo $_GET['url'];
-        // echo "<br>";
-        // echo $_SERVER['REQUEST_METHOD'];
-        // echo "<br>";
-        // echo $_SERVER['REQUEST_URI'];
-        // echo "<br>";
-        // echo phpinfo();
-        // phpinfo();
-
-        $this->institutionModel = $this->model('Institution');
-        // $this-> = $this->model('Listing');
+        $this->receptionistModel = $this->model("Receptionist");
     }
 
-    
-
     public function index() {
-        
         if(isset($_POST['input'])) {
             $input = $_POST['input'];
             // $this->institutionModel->query("SELECT * FROM institutions WHERE institution_name = :input");
-            $stmt = $this->institutionModel->query("SELECT * FROM institutions WHERE institution_name = :input");
+            $stmt = $this->receptionistModel->query("SELECT * FROM receptionists WHERE receptionist_name = :input");
         // $this->institutionModel->bind(':input', $input, PDO::PARAM_STR);
        
             $stmt->bind(':input', $input, PDO::PARAM_STR);
@@ -44,7 +30,7 @@ class search extends Controller {
             }
     
         } else {
-            $this->view('institutions/institutionview');
+            $this->view('receptionists/receptionistview');
 
             // header('HTTP/1.1 400 Bad Request');
             // Echo the error in plain text instead of json
@@ -53,36 +39,16 @@ class search extends Controller {
             // $this->view('institutions/institutionview');
         }
 
-        // echo "this is index";
-        // echo $params;
+        // $this->view('receptionists/receptionistview', ['title'=>'welcome']);
 
-        // echo $id;
-//, ['title' => 'Welcome']
-        // $this->view('homepages/homepageview');
-
-
-        // $this->view('homepages/homepageview', ['title'=>'welcome']);
-
-        // $this->view('')
     }
 
 
     public function about() {
        
-        // echo "this is about";
-        // $this->
-
-        // echo $params;
-
+ 
  
     }
 
-    // public function about() {
-    //     // echo "<br>";
-    //     echo "this is about";
-    //     // echo "<br>";
-    //     // print_r($theparams);
-    // }
 }
-
 

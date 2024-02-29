@@ -26,7 +26,7 @@ class Institutions extends Controller {
         // echo phpinfo();
         // phpinfo();
 
-        $this->institutionModel = $this->model('Institution');
+        // $this->institutionModel = $this->model('Institution');
     }
 
     
@@ -71,9 +71,9 @@ class Institutions extends Controller {
         // return new $model();
         
 
-        var_dump($action);
+        // var_dump($action);
 
-        return $action;
+        // return $action;
 
         // $params = array($action);
         // $this->view('institutions/institutionview', [$action]);
