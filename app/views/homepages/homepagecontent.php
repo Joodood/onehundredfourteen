@@ -31,7 +31,7 @@
                         </form> 
                        
                         <li>
-                            <a href="<?php echo URLROOT; ?>/receptionist" class="btn-download" style = "color: white;">
+                            <a href="<?php echo URLROOT; ?>/Receptionists" class="btn-download" style = "color: white;">
                                 <i class='bx bxs-cloud-download' ></i>
                                 <span class="text">I'd Like to look up a receptionist by name</span>
                             </a>

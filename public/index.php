@@ -12,54 +12,37 @@ require_once   '../app/controllers/SearchController.php';
 
 require_once   '../app/controllers/SearchControllerforRecs.php';
 
+// require_once __DIR__ . '/../app/controllers/SearchControllerforRecs.php';
+// app/controllers/SearchControllerforRecs.php
 
 $database = new Database();
 
 $coreController = new Core();
-$searchController = new SearchController($database);
 
-// $searchControllerforRecs = new SearchControllerforRecs($database);
+require_once __DIR__ . '/../app/controllers/SearchController.php';
+$searchController = new SearchController($database);
+require_once __DIR__ . '/../app/controllers/SearchControllerforRecs.php';
+$searchControllerforRecs = new SearchControllerforRecs($database);
 
 
 // Check if it's an AJAX request
 if ($coreController->isAjaxRequest()) {
-    echo $searchController->search();
+    // echo $searchController->search();
     // echo $searchController->search();
 
     // echo $searchController->searchrec();
 
     //sanitize later
-    // if(isset($_GET['url'])) {
-    //     $url = $_GET['url'];
-    //         if($url == 'search') {
-    //             echo $searchController->search();
-    //         } elseif ($url == 'searchrec') {
-    //             echo $searchControllerforRecs->search();
-    //         }
-    // }
-    
+    if(isset($_GET['url'])) {
+        $url = $_GET['url'];
+            if($url == 'search') {
+                echo $searchController->search();
+            } elseif ($url == 'searchrec') {
+                echo $searchControllerforRecs->search();
+            }
+    }
 
 } else {
-
-
-
-
-
-// if ($coreController->isAjaxRequest()) { 
-//     $url = $_GET['url'];
-//     switch ($url) {
-//         case 'search':
-//             $searchController->search();
-//             break;
-//         case 'searchrec':
-//             $searchController->searchrec();
-//             break;
-//     }
-//     echo $searchController->search();
-// } else {
-
-    
-
     // For non-AJAX requests, handle the default behavior
 
 if(isset($_GET['url'])) {
@@ -70,8 +53,11 @@ if(isset($_GET['url'])) {
         case 'search':
             $searchController->search();
             break;
+        // case 'searchrec':
+        //     $searchController->searchrec();
         case 'searchrec':
-            $searchController->searchrec();
+            $searchControllerforRecs->search();
+            break;
         default:
             $coreController->handleDefault();
             break;
@@ -82,21 +68,3 @@ if(isset($_GET['url'])) {
 }
 
 }
-
-
-
-
-
-
-
-
-
-
-// require_once "../app/bootstrap.php";
-
-
-// //Init core library
-
-// $init = new Core;
-
-

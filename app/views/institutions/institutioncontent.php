@@ -1,18 +1,10 @@
 <style>
 #content main .homepagebackgroundPic {
-    
-    /* border-raidus: 25px; */
-    /* background-image: url('blackwomenreceptionistone.jpg'); */
     background-image: linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.5)), url('<?php echo URLROOT; ?>/images/blackwomenreceptionistone.jpg');
     background-repeat: no-repeat;
-    /* background-attachment: fixed; */
     background-size: cover;
     background-size: 100% 100%;
-
     min-height: 60vh;
-
-    /* filter: blur(.5px);
-  -webkit-filter: blur(.5px); */
 }
 </style>
 
@@ -58,6 +50,8 @@
                        
                         <li>
                             <a href="<?php echo URLROOT; ?>/receptionists" class="btn-download" style = "color: white;">
+                            <!-- <a href="searchrec" class="btn-download" style = "color: white;">  -->
+
                                 <i class='bx bxs-cloud-download' ></i>
                                 <span class="text">I'd Like to look up a receptionist by name</span>
                             </a>
@@ -66,27 +60,33 @@
         </div>
 </div>
 
+
 <script>
 $(document).ready(function() {
+    var ajaxCallEnabled = true;
 
-    // Function to handle the search, including empty inputs
     function search() {
-        var inputValue = $('#live_search').val();
-        console.log('Search triggered for:', inputValue); // Debugging log
+        if (!ajaxCallEnabled) return;
 
-        // Make AJAX request
+        var inputValue = $('#live_search').val();
+        console.log('Search triggered for:', inputValue);
+
         $.ajax({
             type: 'POST',
             url: 'search',
             data: { input: inputValue },
-            cache: false, // Prevents caching of the request
-            beforeSend: function() {
-                $('#searchresult').empty(); // Clear the content before new data is loaded
-                console.log('Before sending AJAX request'); // Debugging log
-            },
             success: function(response) {
+                console.log('AJAX call successful, response:', response);
+
+                // Check if the response indicates to stop further calls
+                if (response.trim() === "stop") {
+                    console.log("Condition met to stop further AJAX calls.");
+                    ajaxCallEnabled = false; // Disable further AJAX calls
+                    return; // Exit the function early
+                }
+
+                // Otherwise, handle the response normally
                 $('#searchresult').html(response);
-                console.log('AJAX call successful, response:', response); // Debugging log
             },
             error: function(xhr, status, error) {
                 console.error("AJAX error:", error);
@@ -95,28 +95,20 @@ $(document).ready(function() {
         });
     }
 
-    // Debounce function to prevent excessive AJAX calls
-    let debounceTimer;
     $('#live_search').on('input', function() {
-        console.log('Input event triggered'); // Debugging log
-        clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(function() {
-            search();
-        }, 250); // Delay search to ensure user has finished typing
+        search();
     });
-
-    // Manual Test Update Button - for sanity check
-    $('<button/>', {
-        text: 'Test Update',
-        click: function() {
-            $('#searchresult').html('Manual test update successful');
-        }
-    }).appendTo('body');
 });
 
 
 
+
 </script>
+
+
+
+
+
 
 
 

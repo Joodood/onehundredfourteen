@@ -10,6 +10,10 @@ class SearchController extends Controller {
         $this->database = $database;
     }
 
+    public function index() {
+        
+    }
+
     public function search() {
         $input = isset($_POST['input']) ? $_POST['input'] : '';
     
@@ -17,28 +21,28 @@ class SearchController extends Controller {
         $result = $this->database->search($input);
     
         if ($result === false) {
-            // If the result is false, handle the error or simply set $result to an empty array
-            // so the foreach loop below is skipped.
+            // echo "No results found."; // Provide a simple message or keep an empty response
+            // return; // Exit the method
             $result = [];
-            // Optionally, add error logging or user feedback here.
         }
     
-        $output = '';
+        // $output = '';
         foreach ($result as $item) {
-            // Adjust the output formatting based on the structure of your data
-            $output .= $item . "\n"; // Example for a simple array of strings
-            // For associative arrays: $output .= $item['key'] . "\n";
+            // print_r($item);
+            // print_r($item);
+            var_dump($item);
+            // $this->view("institutions/institutionview", $item);
+            // Example for a simple array of strings
+            // Adjust this line based on your actual data structure
+            // $output .= '<div>' . htmlspecialchars($item) . '</div>'; // Ensure HTML entities are encoded
+            // For associative arrays, you might use $output .= '<div>' . htmlspecialchars($item['key']) . '</div>';
+
         }
     
-        // Directly echo the output
-        echo $output;
+        // Directly echo the HTML output
+        // echo $output;
     }
     
-
-    // public function index() {
-    //     $this->view('homepages/homepageview', ['title'=>'welcome']);
-
-    // }
 }
 
 

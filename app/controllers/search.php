@@ -34,7 +34,7 @@ class search extends Controller {
 
             header('Content-Type: text/plain');
             if ($result) {
-                print_r($result);
+                // print_r($result);
                 // $this->view('institutions/institutionview', $result);
                 foreach ($result as $key => $value) {
                     echo "{$key}: {$value}\n";

@@ -10,7 +10,7 @@ class Database {
     
     private $dbh;
     private $stmt;
-    private $error; 
+    private $error;  
 
 
     public function __construct() {
@@ -76,7 +76,23 @@ class Database {
         $this->stmt = $this->dbh->prepare("SELECT * FROM institutions WHERE institution_name = :input");
         $this->stmt->bindParam(':input', $input, PDO::PARAM_STR);
         $this->stmt->execute();
-        return $this->stmt->fetch(PDO::FETCH_ASSOC);
+        return $this->stmt->fetchAll();
+
+    }
+
+    // public function searchrec($input) {
+    //     $this->stmt = $this->dbh->prepare("SELECT * FROM receptionists WHERE receptionist_name = :input");
+    //     $this->stmt->bindParam(':input', $input, PDO::PARAM_STR);
+    //     $this->stmt->execute();
+    //     return $this->stmt->fetch(PDO::FETCH_ASSOC);
+    // }
+
+    public function se($input) {
+        // Your database query logic here, for example:
+        $this->stmt = $this->dbh->prepare("SELECT * FROM receptionists WHERE receptionist_name = :input");
+        $this->stmt->bindParam(':input', $input, PDO::PARAM_STR);
+        $this->stmt->execute();
+        return $this->stmt->fetchAll();
     }
 
 }

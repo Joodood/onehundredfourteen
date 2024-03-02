@@ -4,12 +4,12 @@ require_once "../app/libraries/Database.php";
 
 class Institutions extends Controller {
     
-    protected $institutionModel;
-    protected static $database;
+    // protected $institutionModel;
+    // protected static $database;
 
     public function __construct() {
         $this->institutionModel = $this->model('Institution');
-        self::$database = new Database();
+        // self::$database = new Database();
 
         // if(!self::$database->connect()) {
 
@@ -32,8 +32,40 @@ class Institutions extends Controller {
     
 
     public function index() {
-        $single_institution = $this->institutionModel->getInstitutionbyId(1);
-        $data = ['single_institution' => $single_institution];
+        if(isset($_POST['input'])) {
+            $input = $_POST['input'];
+            // $this->institutionModel->query("SELECT * FROM institutions WHERE institution_name = :input");
+            $stmt = $this->institutionModel->query("SELECT * FROM institutions WHERE institution_name = :input");
+        // $this->institutionModel->bind(':input', $input, PDO::PARAM_STR);
+       
+            $stmt->bind(':input', $input, PDO::PARAM_STR);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            header('Content-Type: text/plain');
+            if ($result) {
+                print_r($result);
+                // $this->view('institutions/institutionview', $result);
+                foreach ($result as $key => $value) {
+                    echo "{$key}: {$value}\n";
+                }
+            } else {
+                echo "No results found";
+            }
+    
+        } else {
+            $this->view('institutions/institutionview', ['title'=>'welcome']);
+
+            // header('HTTP/1.1 400 Bad Request');
+            // Echo the error in plain text instead of json
+            // echo "Error: Input not provided";
+            
+            // $this->view('institutions/institutionview');
+        }
+        // $single_institution = $this->institutionModel->getInstitutionbyId(1);
+        // $data = ['single_institution' => $single_institution];
+
+
 
         // echo "this is index";
         // echo $params;
@@ -43,7 +75,7 @@ class Institutions extends Controller {
 
         
 
-        $this->view('institutions/institutionview', ['title'=>'welcome']);
+        // $this->view('institutions/institutionview', ['title'=>'welcome']);
 
         // $this->view('')
     }
