@@ -77,6 +77,11 @@ class search extends Controller {
  
     }
 
+    public function login() {
+
+        $this->view('login/login');
+    }
+
     // public function about() {
     //     // echo "<br>";
     //     echo "this is about";

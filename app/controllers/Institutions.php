@@ -44,7 +44,7 @@ class Institutions extends Controller {
 
             header('Content-Type: text/plain');
             if ($result) {
-                print_r($result);
+                // print_r($result);
                 // $this->view('institutions/institutionview', $result);
                 foreach ($result as $key => $value) {
                     echo "{$key}: {$value}\n";
@@ -81,12 +81,15 @@ class Institutions extends Controller {
     }
 
 
-    public function about() {
-       
-        // echo "this is about";
-        // $this->
+    public function about($id) {
+//        print_r($id);
 
-        // echo $params;
+        $this->newModel = $this->model('Institution');
+
+        $id = $id[0];
+        $returned_institution = $this->newModel->getInstitutionbyId($id);
+
+        $this->view('institutions/about', $returned_institution);
 
  
     }

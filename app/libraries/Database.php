@@ -65,7 +65,9 @@ class Database {
 
     public function single() {
         $this->stmt->execute();
-        return $this->stmt->fetch(PDO::FETCH_OBJ);
+//        return $this->stmt->fetch(PDO::FETCH_OBJ);
+        return $this->stmt->fetch();
+
     }
     public function rowCount() {
         return $this->stmt->rowCount();
@@ -87,6 +89,13 @@ class Database {
     //     return $this->stmt->fetch(PDO::FETCH_ASSOC);
     // }
 
+    public function get_inst_by_id($id) {
+        $this->stmt = $this->dbh->prepare("SELECT * FROM institutions WHERE institution_id = :id");
+        $this->stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $this->stmt->execute();
+        return $this->stmt->fetchAll();
+}
+
     public function se($input) {
         // Your database query logic here, for example:
         $this->stmt = $this->dbh->prepare("SELECT * FROM receptionists WHERE receptionist_name = :input");
@@ -94,6 +103,24 @@ class Database {
         $this->stmt->execute();
         return $this->stmt->fetchAll();
     }
+
+    public function same_as_se($input) {
+        $this->stmt = $this->dbh->prepare("SELECT * FROM receptionists WHERE receptionist_name = :input");
+        $this->stmt->bindParam(':input', $input, PDO::PARAM_STR);
+        $this->stmt->execute();
+        return $this->stmt->fetchAll();
+    }
+
+//    public function recsatinst($input, $institution_id) {
+//        //if $input matches receptionist name and
+////        $this->stmt = $this->dbh->prepare("SELECT * FROM receptionists WHERE receptionist_name = :input and institution_id = :institution_id");
+//        $this->stmt = $this->dbh->prepare("SELECT * FROM receptionists WHERE receptionist_name = :input");
+//
+//        $this->stmt->bindParam(':input', $input, PDO::PARAM_STR);
+////        $this->stmt->bindParam(':institution_id', $institution_id, PDO::PARAM_INT);
+//        $this->stmt->execute();
+//        return $this->stmt->fetchAll();
+//    }
 
 }
 

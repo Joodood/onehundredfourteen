@@ -12,6 +12,9 @@ require_once   '../app/controllers/SearchController.php';
 
 require_once   '../app/controllers/SearchControllerforRecs.php';
 
+require_once   '../app/controllers/SearchControllerforRecsatInst.php';
+
+
 // require_once __DIR__ . '/../app/controllers/SearchControllerforRecs.php';
 // app/controllers/SearchControllerforRecs.php
 
@@ -23,6 +26,8 @@ require_once __DIR__ . '/../app/controllers/SearchController.php';
 $searchController = new SearchController($database);
 require_once __DIR__ . '/../app/controllers/SearchControllerforRecs.php';
 $searchControllerforRecs = new SearchControllerforRecs($database);
+require_once __DIR__ . '/../app/controllers/SearchControllerforRecsatInst.php';
+$searchControllerforRecsatInst = new SearchControllerforRecsatInst($database);
 
 
 // Check if it's an AJAX request
@@ -35,11 +40,26 @@ if ($coreController->isAjaxRequest()) {
     //sanitize later
     if(isset($_GET['url'])) {
         $url = $_GET['url'];
-            if($url == 'search') {
+
+        switch ($url) {
+            case 'search':
                 echo $searchController->search();
-            } elseif ($url == 'searchrec') {
+                break;
+            case 'searchrec':
                 echo $searchControllerforRecs->search();
-            }
+                break;
+            case 'recsatinstitutions':
+                echo $searchControllerforRecsatInst->search();
+                break;
+        }
+
+//            if($url == 'search') {
+//                echo $searchController->search();
+//            } elseif ($url == 'searchrec') {
+//                echo $searchControllerforRecs->search();
+//            } elseif ($url == 'recsatinstitutions') {
+//                echo $searchControllerforRecsatInst->search();
+//            }
     }
 
 } else {
@@ -57,6 +77,9 @@ if(isset($_GET['url'])) {
         //     $searchController->searchrec();
         case 'searchrec':
             $searchControllerforRecs->search();
+            break;
+        case 'recsatinstitutions':
+            $searchControllerforRecsatInst->search();
             break;
         default:
             $coreController->handleDefault();

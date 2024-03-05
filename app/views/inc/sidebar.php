@@ -829,7 +829,8 @@ form .form-input button {
 <!-- i added style = "sidebar.hide" to hide sidebar on homepage-->
 <section id="sidebar">
 
-    <a href="#" class="brand"> 
+    <a href ="<?php echo URLROOT; ?>" class="brand">
+
 
         <i class='bx bxs-smile'></i>
         <!-- <span class="text">RateMyRectp</span> -->
@@ -888,7 +889,7 @@ form .form-input button {
 
     <ul class="side-menu">
         <li>
-            <a title = "Login" href="#">
+            <a title = "Login" href ="<?php echo URLROOT; ?>/login">
             <i class='bx bx-user-check' ></i>
                 <span class="text" >Login</span>
             </a>

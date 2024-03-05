@@ -28,6 +28,7 @@ class SearchControllerforRecs extends Controller {
             // Optionally, add error logging or user feedback here.
         }
     
+        
         // $output = '';
         foreach ($result as $item) {
             // Adjust the output formatting based on the structure of your data
