@@ -1,20 +1,20 @@
 
 <?php require_once APPROOT . '/views/inc/sidebar.php';
- ?>
+?>
 <?php require_once APPROOT . '/views/inc/sidebarheader.php'; ?>
 
 
 
 
-<?php require_once APPROOT . '/views/institutions/institutioncontent.php'; ?>
+<?php require_once APPROOT . '/views/findreceptsatinstitutions/findreceptsatinstitutionscontent.php'; ?>
 
 
 <script>
     window.addEventListener('load', (event) => {
-    const sidebar = document.getElementById('sidebar');
-    sidebar.classList.toggle('hide');
-    console.log('The page has fully loaded');
-});
+        const sidebar = document.getElementById('sidebar');
+        sidebar.classList.toggle('hide');
+        console.log('The page has fully loaded');
+    });
 </script>
 
 <script>
@@ -22,8 +22,8 @@
     const sidebar = document.getElementById('sidebar');
 
     menuBar.addEventListener('click', function () {
-    sidebar.classList.toggle('hide');
-})
+        sidebar.classList.toggle('hide');
+    })
 
 </script>
 

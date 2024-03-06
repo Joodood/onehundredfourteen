@@ -30,7 +30,7 @@ class Receptionists extends Controller {
             }
     
         } else {
-            $this->view('receptionists/receptionistview');
+            // $this->view('receptionists/receptionistview');
 
             // header('HTTP/1.1 400 Bad Request');
             // Echo the error in plain text instead of json

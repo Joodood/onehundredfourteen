@@ -48,6 +48,8 @@ class Core {
     }
 
     public function isAjaxRequest() {
+        // print_r($_SERVER['HTTP_X_REQUESTED_WITH']);
+        // echo $_SERVER['HTTP_X_REQUESTED_WITH'];
         return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
     }
 

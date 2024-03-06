@@ -1,19 +1,81 @@
 <style>
-#content main .homepagebackgroundPic {
-    
-    /* border-raidus: 25px; */
-    /* background-image: url('blackwomenreceptionistone.jpg'); */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    li {
+        list-style: none;
+    }
+
+    :root {
+        --poppins: 'Poppins', sans-serif;
+        --lato: 'Lato', sans-serif;
+
+        --light: #F9F9F9;
+        --blue: #3C91E6;
+        --light-blue: #CFE8FF;
+        --grey: #eee;
+        --dark-grey: #AAAAAA;
+        --dark: #342E37;
+        --red: #DB504A;
+        --yellow: #FFCE26;
+        --light-yellow: #FFF2C6;
+        --orange: #FD7238;
+        --light-orange: #FFE0D3;
+    }
+
+    #content main .homepagebackgroundPic {
     background-image: linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.5)), url('<?php echo URLROOT; ?>/images/blackwomenreceptionistone.jpg');
     background-repeat: no-repeat;
-    /* background-attachment: fixed; */
-    background-size: cover;
+    /*background-size: cover;*/
     background-size: 100% 100%;
-
     min-height: 60vh;
-
-    /* filter: blur(.5px);
-  -webkit-filter: blur(.5px); */
 }
+
+    #content main #searchresult {
+    background: var(--light);
+    position: absolute;
+    /*width: 100%;*/
+    /*width: 60%;*/
+        width: 34%;
+    /*max-width: 400px;*/
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1;
+    display: none; /* Initially hide the dropdown */
+}
+
+/*#searchresult a {*/
+/*    color: black;*/
+/*    padding: 12px 16px;*/
+/*    text-decoration: none;*/
+/*    display: block;*/
+/*    width: 100%;*/
+/*}*/
+
+/*#searchresult a:hover {*/
+/*    background-color: #ddd;*/
+/*}*/
+
+    #content main #searchresult a {
+        /*color: black;*/
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        width: 100%;
+    }
+
+    #content main #searchresult a:hover {
+        color: white;
+        background-color: var(--blue);
+    }
+
+
 </style>
 
     <!-- MAIN -->
@@ -42,16 +104,24 @@
                                 <input type="text" id = "live_search" placeholder="Search...">
 
                                 <button type="submit" id = "button" class="search-btn"><i class='bx bx-search' ></i></button>
+
+                                <!-- <button class="search-btn" onclick="$('#searchresult').html('Test update');">Test Update</button> -->
+
                             </div>
 
                             <div id = "searchresult">
 
+
+
+                                    
                             </div>
 
                         </form> 
                        
                         <li>
                             <a href="<?php echo URLROOT; ?>/receptionists" class="btn-download" style = "color: white;">
+                            <!-- <a href="searchrec" class="btn-download" style = "color: white;">  -->
+
                                 <i class='bx bxs-cloud-download' ></i>
                                 <span class="text">I'd Like to look up a receptionist by name</span>
                             </a>
@@ -61,30 +131,98 @@
 </div>
 
 
-
 <script>
-        function search() {
-            var inputValue = $('#live_search').val();
+// $(document).ready(function() {
+//     var ajaxCallEnabled = true;
+//
+//     function search() {
+//         if (!ajaxCallEnabled) return;
+//
+//         var inputValue = $('#live_search').val();
+//         console.log('Search triggered for:', inputValue);
+//
+//         $.ajax({
+//             type: 'POST',
+//             url: 'search',
+//             data: { input: inputValue },
+//             success: function(response) {
+//                 console.log('AJAX call successful, response:', response);
+//
+//                 // Check if the response indicates to stop further calls
+//                 if (response.trim() === "stop") {
+//                     console.log("Condition met to stop further AJAX calls.");
+//                     ajaxCallEnabled = false; // Disable further AJAX calls
+//                     return; // Exit the function early
+//                 }
+//
+//                 // Otherwise, handle the response normally
+//                 $('#searchresult').html(response);
+//             },
+//             error: function(xhr, status, error) {
+//                 console.error("AJAX error:", error);
+//                 console.log("Status:", status, "Response:", xhr.responseText);
+//             }
+//         });
+//     }
+//
+//     $('#live_search').on('input', function() {
+//         search();
+//     });
+// });
 
-            // Make AJAX request only if the input is not null or undefined
-            if (inputValue !== null && inputValue !== undefined) {
-                // Make AJAX request
-                $.ajax({
-                    type: 'POST',
-                    url: 'search',
-                    data: { input: inputValue },
-                    success: function(response) {
-                        // Update the content
-                        // $('#searchresult').html(response);
-                        console.log(response);
+</script>
+
+
+        <script>
+            $(document).ready(function() {
+                var ajaxCallEnabled = true;
+
+                function search() {
+                    var inputValue = $('#live_search').val();
+
+                    if (!ajaxCallEnabled || !inputValue) {
+                        $('#searchresult').hide(); // Hide the dropdown if input is empty
+                        return;
+                    }
+
+                    console.log('Search triggered for:', inputValue);
+
+                    $.ajax({
+                        type: 'POST',
+                        url: 'search',
+                        data: { input: inputValue },
+                        success: function(response) {
+                            console.log('AJAX call successful, response:', response);
+
+                            if (response.trim()) {
+                                $('#searchresult').html(response).show();
+                            } else {
+                                $('#searchresult').hide(); // Hide the dropdown if response is empty
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("AJAX error:", error);
+                            console.log("Status:", status, "Response:", xhr.responseText);
+                            $('#searchresult').hide();
+                        }
+                    });
+                }
+
+                $('#live_search').on('input', search);
+
+                // Optional: Hide the dropdown when clicking outside of it
+                $(document).on('click', function (e) {
+                    if (!$(e.target).closest('#live_search, #searchresult').length) {
+                        $('#searchresult').hide();
                     }
                 });
-            }
-        }
+            });
+        </script>
 
-        // Initial search on page load
-        search();
-    </script>
+
+
+
+
 
 
 

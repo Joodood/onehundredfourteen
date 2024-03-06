@@ -3,10 +3,19 @@
     Options -Multiviews
     RewriteEngine On
     RewriteBase /onehundredfourteen/public
+
+    # New rule for the search route
+    RewriteRule ^search$ index.php?url=search [QSA,L]
+
+    # New rule for the searchrec route
+    RewriteRule ^searchrec$ index.php?url=searchrec [QSA,L]
+
+    # New rule for the recsAtInstitutions route
+    RewriteRule ^recsatinstitutions$ index.php?url=recsatinstitutions [QSA,L]
+
+
+    # Existing rules
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]
 </IfModule>
-
-
-
