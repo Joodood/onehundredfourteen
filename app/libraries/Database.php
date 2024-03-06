@@ -7,6 +7,7 @@ class Database {
     private $user = DB_USER;
     private $pass = DB_PASS;
     private $dbname = DB_NAME;
+    private $dbport = DB_PORT;
     
     private $dbh;
     private $stmt;
@@ -15,7 +16,7 @@ class Database {
 
     public function __construct() {
         //Set DSN
-        $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbname;
+        $dsn = 'mysql:host=' . $this->host . ";port=" . $this->dbport . ';dbname=' . $this->dbname;
         $options = array(PDO::ATTR_PERSISTENT => true, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
     );
 
@@ -73,7 +74,7 @@ class Database {
 
 
     public function search($input) {
-        $this->stmt = $this->dbh->prepare("SELECT * FROM institutions WHERE institution_name = :input");
+        $this->stmt = $this->dbh->prepare("SELECT * FROM institutions WHERE institutionName = :input");
         $this->stmt->bindParam(':input', $input, PDO::PARAM_STR);
         $this->stmt->execute();
         return $this->stmt->fetch(PDO::FETCH_ASSOC);

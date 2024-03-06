@@ -26,7 +26,7 @@ class Institution {
 
     // }
     public function livesearchInstitutionAll($input) {
-        $query = 'SELECT * FROM institutions WHERE institution_name = :institution_name LIKE ?';
+        $query = 'SELECT * FROM institutions WHERE institutionName = :institutionName LIKE ?';
         // $this->db->query('SELECT * FROM institutions WHERE institutionName LIKE ?');
         
         $stmt = $this->db->query($query);
