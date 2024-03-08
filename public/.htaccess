@@ -11,7 +11,7 @@
     RewriteRule ^searchrec$ index.php?url=searchrec [QSA,L]
 
     # New rule for the recsAtInstitutions route
-    RewriteRule ^recsatinstitutions$ index.php?url=recsatinstitutions [QSA,L]
+    # RewriteRule ^recsatinstitutions$ index.php?url=recsatinstitutions [QSA,L]
 
 
     # Existing rules

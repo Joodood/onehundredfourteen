@@ -1,9 +1,3 @@
-<?php
-
-
-
-
-?>
 
 <style>
     * {
@@ -154,11 +148,15 @@
 
 
 
+
+
+
+
 <main>
 
     <div class = "name">
         <h1>
-            Costco
+            <?php print_r($data[0]["institution_name"]); ?>
         </h1>
 
     </div>
@@ -170,6 +168,13 @@
         </div>
     </div>
 
+    <!-- <?php  
+    // foreach($data[1] as $comment) {
+    //     echo '<div>';
+    //     echo $comment['institution_comment'];
+    //     echo '</div>';
+    // }
+?> -->
 
 
     <div class="table-data">
@@ -188,6 +193,8 @@
                 </tr>
                 </thead>
                 <tbody>
+
+
                 <tr>
                     <td>
                         <img src="img/people.png">
@@ -196,6 +203,74 @@
                     <td>01-10-2021</td>
                     <td><span class="status completed">Completed</span></td>
                 </tr>
+
+
+                <!-- <tr>
+                    <td>
+                        <img src="img/people.png">
+                        <p>John Doe</p>
+                    </td>
+                    <td>01-10-2021</td>
+                    <td><span class="status pending">Pending</span></td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="img/people.png">
+                        <p>John Doe</p>
+                    </td>
+                    <td>01-10-2021</td>
+                    <td><span class="status process">Process</span></td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="img/people.png">
+                        <p>John Doe</p>
+                    </td>
+                    <td>01-10-2021</td>
+                    <td><span class="status pending">Pending</span></td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="img/people.png">
+                        <p>John Doe</p>
+                    </td>
+                    <td>01-10-2021</td>
+                    <td><span class="status completed">Completed</span></td>
+                </tr> -->
+
+
+                </tbody>
+            </table>
+        </div>
+
+
+        <!-- <div class="order">
+            <div class="head">
+                <h3>Receptionists</h3>
+                <i class='bx bx-search' ></i>
+                <i class='bx bx-filter' ></i>
+            </div>
+            <table>
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Date Work</th>
+                    <th>Reviews</th>
+                </tr>
+                </thead>
+                <tbody>
+
+
+                <tr>
+                    <td>
+                        <img src="img/people.png">
+                        <p>John Doe</p>
+                    </td>
+                    <td>01-10-2021</td>
+                    <td><span class="status completed">Completed</span></td>
+                </tr>
+
+
                 <tr>
                     <td>
                         <img src="img/people.png">
@@ -228,20 +303,114 @@
                     <td>01-10-2021</td>
                     <td><span class="status completed">Completed</span></td>
                 </tr>
+
+
                 </tbody>
             </table>
-        </div>
+        </div> -->
+
+
+
+
         <div class="todo">
             <div class="head">
-                <h3>Todos</h3>
+                <h3>Reviews</h3>
                 <i class='bx bx-plus' ></i>
                 <i class='bx bx-filter' ></i>
             </div>
             <ul class="todo-list">
+
+
+
+            <!-- <div class = "cont" style = "display: flex">
+                <div class = "overall-single-review">
+                    <div class = "overall-single-review-container">
+                        <h6>Overall</h6>
+                        <h3 class = "overall-quality">3.5</h3>
+                    </div>
+                </div>
+                
                 <li class="completed">
-                    <p>Todo List</p>
+                    <p>$comment['institution_comment']</p>
                     <i class='bx bx-dots-vertical-rounded' ></i>
                 </li>
+
+            </div> -->
+            
+
+            <!-- <?php  
+    // foreach($data[1] as $comment) {
+
+
+
+    //     echo '<li class="completed">';
+    //     echo $comment['institution_comment'];
+    //     echo "<i class='bx bx-dots-vertical-rounded'></i>";
+    //     echo '</li>';
+
+    // }
+?> -->
+            <?php 
+
+                foreach($data[1] as $comment) {
+                    echo '<li class="completed">';
+                        echo '<div class = "overall">';
+                            echo '<div class = "two-nested-elements">';
+                                
+                                echo $comment['institution_comment'];
+                            echo '</div>';
+                        echo '</div>';
+                    echo '</li>';
+                }
+
+                
+                // foreach($data[1] as $comment) {
+                //     echo '<li class="completed">';
+                //         echo '<div class = "overall">';
+                //             echo '<div class = "two-nested-elements">';
+                //                 echo '<h6>Overall</h6>';
+                //                 echo '<h3 class = "overall-rating"></h3>';
+                //                 echo $comment['stars'];
+                //                 echo $comment['institution_comment'];
+                //             echo '</div>';
+                //         echo '</div>';
+                //     echo '</li>';
+                // }
+
+
+//                 foreach($data[1] as $comment) {
+//                     echo '<li class="completed">';
+//                         echo '<div class = "overall">';
+//                             echo '<div class = "two-nested-elements">';
+//                                 echo '<h6>Overall</h6>';
+//                                 echo '<h3 class = "overall-rating"></h3>';
+//                                 $start = 1;
+//                                 while($start <= 5) {
+//                                     if($comment['rating'] < $start) {
+
+//                                     } else {
+
+//                                     }
+
+//                                     $start++;
+//                                 }
+
+//                                 // echo $comment['rating'];
+//                                 // echo $comment['institution_comment'];
+//                             echo '</div>';
+//                         echo '</div>';
+//                     echo '</li>';
+//                 }
+// ?>
+
+
+                <li class="completed">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, voluptas adipisci aperiam 
+                        provident amet ab, dolore sapiente veniam hic consequuntur,
+                         officiis deserunt perferendis quae nulla est ipsum et tempore!</p>
+                    <i class='bx bx-dots-vertical-rounded' ></i>
+                </li>
+
                 <li class="completed">
                     <p>Todo List</p>
                     <i class='bx bx-dots-vertical-rounded' ></i>
@@ -260,6 +429,9 @@
                 </li>
             </ul>
         </div>
+
+
+
     </div>
 
 

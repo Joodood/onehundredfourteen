@@ -2,7 +2,8 @@
 
 // DB params
 
-define('DB_HOST', 'localhost:8809');
+// define('DB_HOST', 'localhost:8809');
+define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
 define('DB_PASS', 'root');
 define('DB_NAME', 'ratemyreceptionist');
@@ -12,7 +13,7 @@ define('APPROOT', dirname(dirname(__FILE__)));
 
 
 
-define('URLROOT', 'http://localhost/onehundredfourteen');
+define('URLROOT', 'http://localhost:8888/onehundredfourteen');
 
 
 define ('SITENAME', 'RateMyReceptionist');

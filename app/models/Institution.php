@@ -75,6 +75,15 @@ class Institution {
     }
 
 
+            //checek in model for if institution_id is in any record of institution_reviews
+    public function if_institution_id_is_in_record_of_institution_reviews($institution_id) {
+        $this->db->query('SELECT * FROM institutions_reviews WHERE institution_id =:institution_id');
+        $this->db->bind(':institution_id', $institution_id, PDO::PARAM_INT);
+        $row = $this->db->resultSet();
+        return $row;
+    }
+
+
 
 }
 

@@ -24,6 +24,7 @@ class Database {
 
         try {
             $this->dbh = new PDO($dsn, $this->user, $this->pass, $options);
+           
         } catch(PDOException $e) {
             $this->error = $e->getMessage();
             echo $this->error;
@@ -61,7 +62,9 @@ class Database {
 
     public function resultSet() {
         $this->stmt->execute();
-        return $this->stmt->fetchAll(PDO::FETCH_OBJ);
+        // return $this->stmt->fetchAll(PDO::FETCH_OBJ);
+        return $this->stmt->fetchAll();
+
     }
 
     public function single() {
@@ -76,7 +79,7 @@ class Database {
 
 
     public function search($input) {
-        $this->stmt = $this->dbh->prepare("SELECT * FROM institutions WHERE institutionName = :input");
+        $this->stmt = $this->dbh->prepare("SELECT * FROM institutions WHERE institution_name = :input");
         $this->stmt->bindParam(':input', $input, PDO::PARAM_STR);
         $this->stmt->execute();
         return $this->stmt->fetchAll();

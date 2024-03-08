@@ -82,15 +82,62 @@ class Institutions extends Controller {
 
 
     public function about($id) {
-//        print_r($id);
-
+    //    print_r($id);
+        //CREATING NEW MODEL HERE REDUNDANT AFTER CONSTRUCT MODEL
         $this->newModel = $this->model('Institution');
 
         $id = $id[0];
         $returned_institution = $this->newModel->getInstitutionbyId($id);
 
-        $this->view('institutions/about', $returned_institution);
+        // $institution_name= $returned_institution["institution_name"];
+        // $institution_id = $returned_institution["institution_id"];
+        //could use $id of the one passed in or from the returned array institution row 
+        
+        //checek in model for if institution_id is in any record of institution_reviews
+        $all_institutions_reviews_results = $this->newModel->if_institution_id_is_in_record_of_institution_reviews($id);
 
+
+        // if($institutions_reviews_results) {
+        //     var_dump($institutions_reviews_results);
+        //     echo "<br>";
+        //     echo "<br>";
+        //     echo "<br>";
+
+        //     // echo ".....................institution_review_results[0]; ";
+        //     // print_r($institutions_reviews_results[0]);
+        //     foreach($institutions_reviews_results as $comment) {
+        //         echo "<br>";
+        //         echo "<br>";
+    
+        //         echo "...................................: " . $comment['institution_review_id'];
+        //         echo "<br>";
+        //         echo "...................................: " . $comment['institution_comment'];
+        //         echo "<br>";
+        //         echo "<br>";
+        //     }
+        //     echo "<br>";
+        //     echo "<br>";
+        //     echo "<br>";
+        //     echo "<br>";
+        //     $reduced_one_array = $institutions_reviews_results[0];
+        //     echo "<br>";
+        //     echo " ...................fewfewokfowkefowkfef: " . $reduced_one_array["institution_comment"];
+            
+        //     // print_r($institutions_reviews_results);
+        //     // var_dump($institutions_reviews_results);
+
+        // }
+        $data = [$returned_institution, $all_institutions_reviews_results];
+        print_r($data);
+        var_dump(array_values($data));
+
+        
+        if($all_institutions_reviews_results) {
+            $this->view("institutions/about", $data);
+        } else {
+            $this->view("institutions/about");
+        }
+    // $this->view('institutions/about');
  
     }
 
@@ -127,6 +174,14 @@ class Institutions extends Controller {
         // var_dump($action);
         // echo $action;
 
+    }
+
+    public function show() {
+        //if does not exist 
+            //create a new institution 
+        //else
+            //show all institution pages
+        $this->view("institutions/institutionshow");
     }
 
     // public function about() {

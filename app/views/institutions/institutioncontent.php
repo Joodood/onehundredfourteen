@@ -97,13 +97,16 @@
                             <a href="#">Enter your school or business to get started</a>
                         </li>
                     </ul>
-                
-                        <form class = "picForm" style = "display: block" action="#">
+                    <!-- action="<?php echo URLROOT; ?>/Institution/show" -->
+                            <!-- add id = button to both form element and button element-->
+                            <!-- id = "button" -->
+                        <form class = "picForm" style = "display: block">
                             <div class="form-input">
 
                                 <input type="text" id = "live_search" placeholder="Search...">
 
-                                <button type="submit" id = "button" class="search-btn"><i class='bx bx-search' ></i></button>
+                                <!-- value = "live_search" -->
+                                <button type="submit" id = "button" class="search-btn" <i class='bx bx-search'></i></button>
 
                                 <!-- <button class="search-btn" onclick="$('#searchresult').html('Test update');">Test Update</button> -->
 
