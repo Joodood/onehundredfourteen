@@ -35,6 +35,7 @@
     background-repeat: no-repeat;
     /*background-size: cover;*/
     background-size: 100% 100%;
+    /* background-size: 60% 60%; */
     min-height: 60vh;
 }
 
@@ -76,6 +77,11 @@
     }
 
 
+    
+
+
+    
+
 </style>
 
     <!-- MAIN -->
@@ -87,8 +93,16 @@
 
 <!-- <div class = "homepagebackgroundPic"> -->
 <!-- <div style = "background:url('blackwomenreceptionistone.jpg')"> -->
-    <div class = "homepagebackgroundPic">
-        <!-- <img src ='blackwomenreceptionistone.jpg' class = 'homepagebackgroundPic'> -->
+
+
+
+
+
+
+
+
+
+<div class = "homepagebackgroundPic">
         <div class="head-title">
                 <div class="left">
                     <h1>Rate My Receptionist</h1>
@@ -100,13 +114,16 @@
                     <!-- action="<?php echo URLROOT; ?>/Institution/show" -->
                             <!-- add id = button to both form element and button element-->
                             <!-- id = "button" -->
-                        <form class = "picForm" style = "display: block">
+                            <!-- action = "<?php echo URLROOT;?>/Institutions/show" -->
+                        <form class = "picForm" style = "display: block" action = "<?php echo URLROOT;?>/Institutions/show" method = "POST">
+
                             <div class="form-input">
 
-                                <input type="text" id = "live_search" placeholder="Search...">
+                                <input type="text" id = "live_search" placeholder="Search..." name = "input_institution_name" onkeyup="checkInput()">
 
                                 <!-- value = "live_search" -->
-                                <button type="submit" id = "button" class="search-btn" <i class='bx bx-search'></i></button>
+                                <!-- <button type="submit" id = "button" class="search-btn"> <i class="bx bx-search"> </i> </button> -->
+                                <button type="submit" id="submit-btn" class="search-btn" disabled> <i class="bx bx-search"></i> </button>
 
                                 <!-- <button class="search-btn" onclick="$('#searchresult').html('Test update');">Test Update</button> -->
 
@@ -132,6 +149,10 @@
                 </div>
         </div>
 </div>
+
+
+
+
 
 
 <script>
@@ -176,7 +197,7 @@
 </script>
 
 
-        <script>
+        <!-- <script>
             $(document).ready(function() {
                 var ajaxCallEnabled = true;
 
@@ -220,11 +241,140 @@
                     }
                 });
             });
-        </script>
+        </script> -->
+
+
+
+        <!-- <script>
+            $(document).ready(function() {
+
+
+                    // Handle form submission
+    $('.picForm').on('submit', function(e) {
+        // e.preventDefault(); // Prevent default form submission
+        var inputValue = $('#live_search').val();
+
+        $.ajax({
+            type: 'POST',
+            url: '<?php echo URLROOT; ?>/Institutions/show',
+            data: { input_institution_name: inputValue }, // Use the name of your input field as the key
+            success: function(response) {
+                // Handle success. For example, you might want to display something in the searchresult div
+                // $('#searchresult').html(response).show();
+                //want to navigate to a new page
+                var inputValue = $('#live_search').val(); // Get the input value
+                window.location.href = redirectUrl + '?input_institution_name=' + encodeURIComponent(inputValue);
+                window.location.href = redirectUrl + '?input_institution_name=' + encodeURIComponent(inputValue);
+
+            },
+            error: function(xhr, status, error) {
+                // Handle error
+                console.error("Error occurred:", error);
+            }
+        });
+    });
+
+    // Your existing AJAX code for the live search...
 
 
 
 
+                var ajaxCallEnabled = true;
+
+                function search() {
+                    var inputValue = $('#live_search').val();
+
+                    if (!ajaxCallEnabled || !inputValue) {
+                        $('#searchresult').hide(); // Hide the dropdown if input is empty
+                        return;
+                    }
+
+                    console.log('Search triggered for:', inputValue);
+
+                    $.ajax({
+                        type: 'POST',
+                        url: 'search',
+                        data: { input: inputValue },
+                        success: function(response) {
+                            console.log('AJAX call successful, response:', response);
+
+                            if (response.trim()) {
+                                $('#searchresult').html(response).show();
+                            } else {
+                                $('#searchresult').hide(); // Hide the dropdown if response is empty
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("AJAX error:", error);
+                            console.log("Status:", status, "Response:", xhr.responseText);
+                            $('#searchresult').hide();
+                        }
+                    });
+                }
+
+                $('#live_search').on('input', search);
+
+                // Optional: Hide the dropdown when clicking outside of it
+                $(document).on('click', function (e) {
+                    if (!$(e.target).closest('#live_search, #searchresult').length) {
+                        $('#searchresult').hide();
+                    }
+                });
+            });
+        </script> -->
+
+
+
+
+    
+        <script>
+// Define checkInput globally to ensure it's accessible
+function checkInput() {
+    var inputValue = $('#live_search').val().trim(); // Use trim to ignore white spaces
+    // Enable or disable the submit button based on input value
+    $('#submit-btn').prop('disabled', !inputValue);
+}
+
+$(document).ready(function() {
+    // Attach the input event listener for live search and to call checkInput
+    $('#live_search').on('input', function() {
+        checkInput(); // Call to enable/disable submit button
+
+        var inputValue = $(this).val().trim();
+
+        if (!inputValue) {
+            $('#searchresult').hide(); // Hide search results if input is empty
+            return; // Exit the function if no input value
+        }
+
+        // Proceed with AJAX call for live search if there's input
+        console.log('Search triggered for:', inputValue);
+        $.ajax({
+            type: 'POST',
+            url: 'search', // Adjust URL as necessary
+            data: { input: inputValue },
+            success: function(response) {
+                if (response.trim()) {
+                    $('#searchresult').html(response).show();
+                } else {
+                    $('#searchresult').hide();
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("AJAX error:", error);
+                $('#searchresult').hide();
+            }
+        });
+    });
+
+    // Optional: Hide the search results when clicking outside
+    $(document).on('click', function(e) {
+        if (!$(e.target).closest('#live_search, #searchresult').length) {
+            $('#searchresult').hide();
+        }
+    });
+});
+</script>
 
 
 
@@ -233,3 +383,17 @@
 
 </section>
 <!-- CONTENT -->
+
+
+
+<!-- $(document).ready(function() {
+    // Your existing code...
+
+    // Handle form submission
+    $('.picForm').on('submit', function(e) {
+        e.preventDefault(); // Prevent default form submission
+        var inputValue = $('#live_search').val();
+
+        $.ajax({
+            type: 'POST',
+            url: '<?php echo URLROOT; ?>/Institutions/show', // -->

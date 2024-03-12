@@ -205,8 +205,8 @@ body {
     color: var(--dark);
 }
 #content nav .bx.bx-menu {
-    cursor: pointer;
-    color: var(--dark);
+    /* cursor: pointer;
+    color: var(--dark); */
 }
 #content nav .nav-link {
     font-size: 16px;

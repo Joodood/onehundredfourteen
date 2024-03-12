@@ -1,4 +1,23 @@
+<style>
+#content nav .bx.bx-menu {
+    cursor: pointer;
+    color: var(--dark); /* Ensure this color contrasts well with your background */
+    position: relative;
+    display: inline-block;
+    width: 40px; /* Reduced width for a smaller circle */
+    height: 40px; /* Reduced height for a smaller circle */
+    text-align: center;
+    line-height: 40px; /* Adjust line height to match the new height */
+    transition: color 0.5s ease, box-shadow 0.5s ease;
+    border-radius: 50%; /* Maintain circular shape */
+}
 
+#content nav .bx.bx-menu:hover {
+    color: #3C91E6; /* Blue color on hover for the icon */
+    box-shadow: 0 0 8px #3C91E6, 0 0 16px #3C91E6; /* Smaller glowing effect circle */
+}
+
+    </style>
 <!-- CONTENT -->
 <section id="content">
     <!-- NAVBAR -->
@@ -29,7 +48,10 @@
             <span class="num">8</span>
         </a> -->
         <!-- <a href="#" class="notification"> -->
-        <a href="#" class="profile">
+
+
+             <!-- was class = profile-->
+        <a href ="<?php echo URLROOT; ?>/Users/login" class="nav-link">
             <!-- <i class='bx bxs-bell' ></i> -->
             <!-- <span class="num">8</span> -->
             Login
@@ -37,7 +59,9 @@
         <!-- <a href="#" class="profile">
             <img src="img/people.png">
         </a> -->
-        <a href="#" class="notification">
+
+        <!-- was class = notification-->
+        <a href ="<?php echo URLROOT; ?>/Users/register" class="nav-link">
         <!-- <a href="#" class="profile"> -->
             <!-- <img src="img/people.png"> -->
             Sign Up

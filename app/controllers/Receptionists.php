@@ -40,15 +40,36 @@ class Receptionists extends Controller {
         }
 
         // $this->view('receptionists/receptionistview', ['title'=>'welcome']);
+    }
+
+
+    public function show() {
+        // input_receptionist_name
+    }
+
+//about are the Receptionist Reviews, and can be the left comments in Hathway Bros sight next to ontop of under song lyrics or a wave line
+    public function about($id) {
+        $id = $id[0];
+
+        $returned_receptionist = $this->receptionistModel->getReceptionistbyId($id);
+
+        $all_receptionists_reviews_results = $this->receptionistModel->if_receptionist_id_is_in_record_of_reception_reviews($id);
+
+        $data = [$returned_receptionist, $all_receptionists_reviews_results];
+
+        // print_r($data);
+
+        if($all_receptionists_reviews_results) {
+            $this->view("receptionists/about", $data);
+        } else {
+            $this->view("receptionists/about");
+        }
+
 
     }
 
 
-    public function about() {
-       
- 
- 
-    }
+
 
 }
 

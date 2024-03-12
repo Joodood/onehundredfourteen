@@ -39,6 +39,7 @@ class Institution {
 
     }
 
+
     // public function searchInstitution($)
 
     public function query($sql) {
@@ -74,6 +75,12 @@ class Institution {
         return $row;
     }
 
+    public function getInstitutionbyName($institution_name) {
+        $this->db->query('SELECT * FROM institutions WHERE institution_name =:institution_name');
+        $this->db->bind(':institution_name', $institution_name, PDO::PARAM_STR);
+        $row = $this->db->resultSet();
+        return $row;
+    }
 
             //checek in model for if institution_id is in any record of institution_reviews
     public function if_institution_id_is_in_record_of_institution_reviews($institution_id) {
@@ -81,6 +88,13 @@ class Institution {
         $this->db->bind(':institution_id', $institution_id, PDO::PARAM_INT);
         $row = $this->db->resultSet();
         return $row;
+    }
+
+    public function check_if_institution_already_exists($institution_name) {
+        
+        $this->db->query('SELECT * FROM institutions WHERE institution_name = "" AND institution_city = "" AND institution_state = ""');
+
+
     }
 
 

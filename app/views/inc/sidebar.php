@@ -13,6 +13,8 @@
     <link rel="stylesheet" href ="<?php echo URLROOT; ?>/css/style.css">
 
     <title><?php echo SITENAME; ?> </title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons/css/boxicons.min.css" integrity="sha384-k8D3fW11t+aRRy6JgFQjsrU4pKzJN4/cZT+gzl1a8zRjI1KQJQf6Z0JO6JjNSDOD" crossorigin="anonymous">
 
 
 
@@ -871,6 +873,19 @@ form .form-input button {
                 <span class="text">Rate</span>
             </a>
         </li> -->
+        <!-- <li>
+            <a href="#">
+                <i class='bx bxs-cog' ></i>
+                <span class="text">Settings</span>
+            </a>
+        </li> -->
+        <!-- <li>
+            <a href="<?php echo URLROOT;?>/Users/legal">
+                <i class='bx bxs-cog' ></i>
+                <span class="text">Legal</span>
+            </a>
+        </li> -->
+
     </ul>
 
     <!-- <ul class="side-menu">
@@ -889,14 +904,20 @@ form .form-input button {
     </ul> -->
 
     <ul class="side-menu">
+    <li>
+            <a href="<?php echo URLROOT;?>/Users/legal">
+                <i class='bx bxs-cog' ></i>
+                <span class="text">Legal</span>
+            </a>
+        </li>
         <li>
-            <a title = "Login" href ="<?php echo URLROOT; ?>/login">
+            <a title = "Login" href ="<?php echo URLROOT; ?>/Users/login">
             <i class='bx bx-user-check' ></i>
                 <span class="text" >Login</span>
             </a>
         </li>
         <li>
-            <a href="#" title = "Sign Up" class="logout">
+            <a href ="<?php echo URLROOT; ?>/Users/register" title = "Sign Up" class="logout">
             <!-- <i class='bx bx-user-plus'></i> -->
             <i class='bx bxs-edit-alt' ></i>
                 <span class="text">Sign Up</span>

@@ -59,7 +59,12 @@ class Receptionist {
     }
 
 
-
+    public function if_receptionist_id_is_in_record_of_reception_reviews($receptionist_id) {
+        $this->db->query('SELECT * FROM receptionists_reviews WHERE receptionist_id =:receptionist_id');
+        $this->db->bind(':receptionist_id', $receptionist_id, PDO::PARAM_INT);
+        $row = $this->db->resultSet();
+        return $row;
+    }
 
 
 

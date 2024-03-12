@@ -5,7 +5,7 @@
 <?php require_once APPROOT . '/views/inc/searchbarheader.php';?>
 
 
-<?php require_once APPROOT . '/views/institutions/institutionshowcontent.php'; ?>
+<?php require_once APPROOT . '/views/users/loginviewcontent.php'; ?>
 
 
 <script>

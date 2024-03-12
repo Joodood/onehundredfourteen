@@ -53,6 +53,8 @@ class search extends Controller {
             // $this->view('institutions/institutionview');
         }
 
+        // $this->view('institutions/institutionview');
+
         // echo "this is index";
         // echo $params;
 

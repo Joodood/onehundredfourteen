@@ -7,6 +7,42 @@
     background-size: 100% 100%;
     min-height: 60vh;
 }
+#content main #searchresult {
+    background: var(--light);
+    position: absolute;
+    /*width: 100%;*/
+    /*width: 60%;*/
+        width: 34%;
+    /*max-width: 400px;*/
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1;
+    display: none; /* Initially hide the dropdown */
+}
+
+/*#searchresult a {*/
+/*    color: black;*/
+/*    padding: 12px 16px;*/
+/*    text-decoration: none;*/
+/*    display: block;*/
+/*    width: 100%;*/
+/*}*/
+
+/*#searchresult a:hover {*/
+/*    background-color: #ddd;*/
+/*}*/
+
+    #content main #searchresult a {
+        /*color: black;*/
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        width: 100%;
+    }
+
+    #content main #searchresult a:hover {
+        color: white;
+        background-color: var(--blue);
+    }
 </style>
     <!-- MAIN -->
     <main>
@@ -25,10 +61,13 @@
                         </li>
                     </ul>
                 
-                        <form class = "picForm" style = "display: block" action="#">
+                    <form class = "picForm" style = "display: block" action = "<?php echo URLROOT;?>/Receptionists/show" method = "POST">
+
                             <div class="form-input">
 
-                                <input type="text" id = "live_search" placeholder="Search...">
+                                <input type="text" id = "live_search" placeholder="Search..." name = "input_receptionist_name" onkeyup="checkInput()">
+                                
+                                <button type="submit" id="submit-btn" class="search-btn" disabled> <i class="bx bx-search"></i> </button>
 
                                 <!-- <button type="submit" class="search-btn"><i class='bx bx-search' ></i></button> -->
                             </div>
@@ -50,69 +89,34 @@
 </div>
 
 
+
+
 <script>
-// $(document).ready(function() {
-
-// // Function to handle the search, including empty inputs
-// function searchrec() { // Changed function name here
-//     var inputValue = $('#live_search').val();
-//     console.log('Search triggered for:', inputValue); // Debugging log
-
-//     // Make AJAX request
-//     $.ajax({
-//         type: 'POST',
-//         url: 'searchrec', // This remains the same as it's the endpoint, not the function name
-//         data: { input: inputValue },
-//         // cache: false, // Prevents caching of the request
-//         // beforeSend: function() {
-//         //     $('#searchresult').empty(); // Clear the content before new data is loaded
-//         //     console.log('Before sending AJAX request'); // Debugging log
-//         // },
-//         success: function(response) {
-//             $('#searchresult').html(response);
-//             console.log('AJAX call successful, response:', response); // Debugging log
-//         },
-//         error: function(xhr, status, error) {
-//             console.error("AJAX error:", error);
-//             console.log("Status:", status, "Response:", xhr.responseText);
-//         }
-//     });
-// }
-
-// // Debounce function to prevent excessive AJAX calls
-// // let debounceTimer;
-// // $('#live_search').on('input', function() {
-// //     console.log('Input event triggered'); // Debugging log
-// //     clearTimeout(debounceTimer);
-// //     debounceTimer = setTimeout(function() {
-// //         searchrec(); // Changed function call here
-// //     }, 250); // Delay search to ensure user has finished typing
-// // });
-
-// // // Manual Test Update Button - for sanity check
-// // $('<button/>', {
-// //     text: 'Test Update',
-// //     click: function() {
-// //         $('#searchresult').html('Manual test update successful');
-// //     }
-// // }).appendTo('body');
-
-// });
-
+// Define checkInput globally to ensure it's accessible
+function checkInput() {
+    var inputValue = $('#live_search').val().trim(); // Use trim to ignore white spaces
+    // Enable or disable the submit button based on input value
+    $('#submit-btn').prop('disabled', !inputValue);
+}
 
 $(document).ready(function() {
     var ajaxCallEnabled = true;
 
-    // Function 'search' is now 'searchrec'
+    // Function 'searchrec' for handling live search with condition to stop further AJAX calls if necessary
     function searchrec() {
         if (!ajaxCallEnabled) return;
 
-        var inputValue = $('#live_search').val();
+        var inputValue = $('#live_search').val().trim(); // Ensure trim is used here as well
         console.log('Search triggered for:', inputValue);
+
+        if (!inputValue) {
+            $('#searchresult').hide(); // Hide search results if input is empty
+            return; // Exit the function early if no input value
+        }
 
         $.ajax({
             type: 'POST',
-            url: 'searchrec', // Adjusted to match the new function name if necessary
+            url: 'searchrec', // URL adjusted to 'searchrec'
             data: { input: inputValue },
             success: function(response) {
                 console.log('AJAX call successful, response:', response);
@@ -120,29 +124,34 @@ $(document).ready(function() {
                 // Check if the response contains a specific marker to stop further calls
                 if (response.trim() === "stop") {
                     console.log("Condition met to stop further AJAX calls.");
-                    ajaxCallEnabled = false; // Disable further AJAX calls
-                    return; // Exit the function early
+                    ajaxCallEnabled = false;
+                    return;
                 }
 
-                // Otherwise, handle the response normally
-                $('#searchresult').html(response);
+                $('#searchresult').html(response).show();
             },
             error: function(xhr, status, error) {
                 console.error("AJAX error:", error);
-                console.log("Status:", status, "Response:", xhr.responseText);
+                $('#searchresult').hide();
             }
         });
     }
 
-    // Update the event handler to use 'searchrec' instead of 'search'
+    // Attach the input event listener for both live search and to call checkInput
     $('#live_search').on('input', function() {
-        searchrec();
+        checkInput(); // Call to enable/disable submit button based on current input
+        searchrec(); // Perform the search/AJAX call
+    });
+
+    // Optional: Hide the search results when clicking outside
+    $(document).on('click', function(e) {
+        if (!$(e.target).closest('#live_search, #searchresult').length) {
+            $('#searchresult').hide();
+        }
     });
 });
-
-
-
 </script>
+
 
 
 

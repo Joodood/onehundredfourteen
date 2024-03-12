@@ -22,6 +22,10 @@ class Controller {
             die("View Does Not Exist");
         }
     }
+    public function redirect($url) {
+        header("Location: " . $url);
+        exit();
+    }
 }
 
 //if there not ont he omepage 
