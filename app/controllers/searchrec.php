@@ -2,6 +2,7 @@
 
 
 class Receptionists extends Controller {
+    private $receptionistModel;
     public function __construct() {
         // echo $_GET['url'];
         $this->receptionistModel = $this->model("Receptionist");

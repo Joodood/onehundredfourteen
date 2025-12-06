@@ -2,6 +2,7 @@
 
 
 class search extends Controller {
+    private $institutionModel;
     public function __construct() {
         // echo 'Homepages loaded';
         // echo "<br>"; 

@@ -1,14 +1,11 @@
 
-<?php require_once APPROOT . '/views/inc/sidebar.php';
-?>
-<?php require_once APPROOT . '/views/inc/searchbarheader.php'; ?>
+<?php require_once APPROOT . '/views/inc/sidebar.php';?>
 
 
-<?php require_once APPROOT . '/views/receptionists/aboutcontent_new.php'; ?>
+<?php require_once APPROOT . '/views/inc/searchbarheader.php';?>
 
-<?php //require_once APPROOT . '/views/institutions/aboutcontenttwo.php'; ?>
 
-<?php //require_once APPROOT . '/views/institutions/institutioncontent.php'; ?>
+<?php require_once APPROOT . '/views/receptionists/receptionistshowcontent.php'; ?>
 
 
 <script>

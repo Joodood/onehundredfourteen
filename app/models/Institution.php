@@ -96,6 +96,66 @@ class Institution {
 
 
     }
+    
+    // Get all institutions
+    public function getAllInstitutions() {
+        $this->db->query('SELECT * FROM institutions ORDER BY institution_name ASC');
+        return $this->db->resultSet();
+    }
+    
+    // Add new institution
+    public function addInstitution($name, $city, $state) {
+        $this->db->query('INSERT INTO institutions (institution_name, institution_city, institution_state) 
+                         VALUES (:name, :city, :state)');
+        $this->db->bind(':name', $name, PDO::PARAM_STR);
+        $this->db->bind(':city', $city, PDO::PARAM_STR);
+        $this->db->bind(':state', $state, PDO::PARAM_STR);
+        
+        if($this->db->execute()) {
+            return $this->db->lastInsertId();
+        } else {
+            return false;
+        }
+    }
+
+    // Search for similar institution names
+    public function searchSimilarInstitutions($search_term, $limit = 5) {
+        // Get institutions that start with the same letter or contain the search term
+        $first_letter = substr($search_term, 0, 1);
+
+        $this->db->query('SELECT * FROM institutions 
+                     WHERE institution_name LIKE :search_term 
+                     OR institution_name LIKE :first_letter
+                     ORDER BY 
+                        CASE 
+                            WHEN institution_name LIKE :exact THEN 1
+                            WHEN institution_name LIKE :starts_with THEN 2
+                            ELSE 3
+                        END,
+                        institution_name ASC
+                     LIMIT :limit');
+
+        $this->db->bind(':search_term', '%' . $search_term . '%', PDO::PARAM_STR);
+        $this->db->bind(':first_letter', $first_letter . '%', PDO::PARAM_STR);
+        $this->db->bind(':exact', $search_term . '%', PDO::PARAM_STR);
+        $this->db->bind(':starts_with', $search_term . '%', PDO::PARAM_STR);
+        $this->db->bind(':limit', $limit, PDO::PARAM_INT);
+
+        return $this->db->resultSet();
+    }
+
+// Get institutions starting with a specific letter
+    public function getInstitutionsByFirstLetter($letter, $limit = 10) {
+        $this->db->query('SELECT * FROM institutions 
+                     WHERE institution_name LIKE :letter 
+                     ORDER BY institution_name ASC 
+                     LIMIT :limit');
+
+        $this->db->bind(':letter', $letter . '%', PDO::PARAM_STR);
+        $this->db->bind(':limit', $limit, PDO::PARAM_INT);
+
+        return $this->db->resultSet();
+    }
 
 
 

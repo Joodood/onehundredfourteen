@@ -15,9 +15,45 @@
     <title><?php echo SITENAME; ?> </title>
     
 </head>
+<style>
+    /* Force Profile Dropdown to Absolute Right */
+    #content nav {
+        position: relative;
+    }
 
+    #content nav .user-profile-dropdown,
+    #content nav .profile,
+    #content nav .notification {
+        position: absolute;
+        right: 24px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    /* When both login and signup exist, position them */
+    #content nav .profile {
+        right: 120px; /* Adjust this number */
+    }
+
+    #content nav .notification {
+        right: 24px;
+    }
+
+    /* When logged in, only profile dropdown */
+    #content nav .user-profile-dropdown {
+        right: 24px;
+    }
+</style>
 <body>
+<body>
+<?php
+//echo "DEBUG INFO:<br>";
+//echo "isLoggedIn: " . (isLoggedIn() ? 'YES' : 'NO') . "<br>";
+//echo "Session user_id: " . ($_SESSION['user_id'] ?? 'NOT SET') . "<br>";
+//echo "Session user_email: " . ($_SESSION['user_email'] ?? 'NOT SET') . "<br>";
+//?>
 
+<!-- SIDEBAR -->
 <!-- SIDEBAR -->
 <!-- i added style = "sidebar.hide" to hide sidebar on homepage-->
 <section id="sidebar">
@@ -85,12 +121,13 @@
         </li>
         <li>
             <a href="#" title = "Sign Up" class="logout">
-            <!-- <i class='bx bx-user-plus'></i> -->
+             <i class='bx bx-user-plus'></i>
             <i class='bx bxs-edit-alt' ></i>
                 <span class="text">Sign Up</span>
             </a>
         </li>
     </ul>
+
 
 </section>
 <!-- SIDEBAR -->
@@ -126,20 +163,63 @@
             <i class='bx bxs-bell' ></i>
             <span class="num">8</span>
         </a> -->
-        <!-- <a href="#" class="notification"> -->
-        <a href="#" class="profile">
+
+
+
+<!--         <a href="#" class="notification"> -->
+<!--        <a href="#" class="profile">-->
             <!-- <i class='bx bxs-bell' ></i> -->
             <!-- <span class="num">8</span> -->
-            Login
-        </a>
+<!--            Login-->
+<!--        </a>-->
         <!-- <a href="#" class="profile">
             <img src="img/people.png">
         </a> -->
-        <a href="#" class="notification">
+<!--        <a href="#" class="notification">-->
         <!-- <a href="#" class="profile"> -->
             <!-- <img src="img/people.png"> -->
-            Sign Up
-        </a>
+<!--            Sign Up-->
+<!--        </a>-->
+<!--        -->
+
+        <?php if(isLoggedIn()): ?>
+            <!-- Logged In - Show Profile Dropdown -->
+            <div class="user-profile-dropdown">
+                <div class="profile-trigger">
+                    <div class="profile-circle">
+                        <i class='bx bxs-user'></i>
+                    </div>
+                    <span class="user-email"><?php echo $_SESSION['user_email'] ?? 'User'; ?></span>
+                    <i class='bx bx-chevron-down'></i>
+                </div>
+                <div class="dropdown-menu">
+                    <a href="<?php echo URLROOT; ?>/dashboard" class="dropdown-item">
+                        <i class='bx bx-home'></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="<?php echo URLROOT; ?>/users/settings" class="dropdown-item">
+                        <i class='bx bx-cog'></i>
+                        <span>Settings</span>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="<?php echo URLROOT; ?>/users/logout" class="dropdown-item logout">
+                        <i class='bx bx-log-out'></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </div>
+        <?php else: ?>
+            <!-- Not Logged In - Show Login/Sign Up -->
+            <a href="<?php echo URLROOT; ?>/users/login" class="profile">
+                <i class='bx bx-user-check'></i>
+                Login
+            </a>
+            <a href="<?php echo URLROOT; ?>/users/register" class="notification">
+                <i class='bx bxs-edit-alt'></i>
+                Sign Up
+            </a>
+        <?php endif; ?>
+
     </nav>
     <!-- NAVBAR -->
 

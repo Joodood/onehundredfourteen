@@ -4,7 +4,7 @@
 <?php require_once APPROOT . '/views/inc/searchbarheader.php'; ?>
 
 
-<?php require_once APPROOT . '/views/institutions/aboutcontent.php'; ?>
+<?php require_once APPROOT . '/views/institutions/aboutcontent_new.php'; ?>
 
 <?php //require_once APPROOT . '/views/institutions/aboutcontenttwo.php'; ?>
 

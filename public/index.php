@@ -1,5 +1,11 @@
-<?php 
+<?php
 
+
+//error_reporting(0);
+//ini_set('display_errors', 0);
+//
+//// Load Core
+//require_once '../app/bootstrap.php';
 
 
 // require_once __DIR__ . '/../app/libraries/Core.php';
@@ -14,6 +20,8 @@ require "../app/libraries/Core.php";
 
 require_once "../app/configs/config.php";
 // echo 'yose';
+require_once "../app/helpers/url_helper.php";
+require_once "../app/helpers/session_helper.php";
 
 require_once "../app/libraries/Database.php";
 // echo "databaseyes";
